@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import ConnectWallet from "./components/ConnectWallet";
 import Balance from "./components/Balance";
-import TransferForm from "./components/TransferForm";
+import TransferForm from "./components/ApproveTransferForm";
 import tokenAbi from "./contracts/MyToken.json";
 
 const TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS;
