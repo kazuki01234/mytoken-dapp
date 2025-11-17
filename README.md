@@ -29,7 +29,7 @@ MetaMask を接続して残高確認・送金ができる DApp の最小構成�
 - React + TailwindCSS によるシンプルな UI
 
 ## UI
-![alt text](images/image.png)
+![alt text](screenshots/image.png)
 
 ## 今後の開発予定
 
