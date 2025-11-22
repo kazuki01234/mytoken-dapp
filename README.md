@@ -1,80 +1,82 @@
-# MyToken DApp（ERC-20）
+# MyToken DApp (ERC-20)
 
-Solidity + Hardhat で作成した ERC-20 トークン（MyToken / MTK） と、
-React + Ethers.js を使ったシンプルなフロントエンドで動作する Web3 DApp です。
-MetaMask を接続して残高確認・送金ができる DApp の最小構成を実装しています。
+MyToken DApp is a simple ERC-20 Web3 application that allows users to connect MetaMask, check balances, and transfer tokens on Sepolia testnet.  
+It combines Solidity + Hardhat for the smart contract and React + Ethers.js for the frontend.
 
-## 開発進捗（Overview）
+## Project Overview
 
-本プロジェクトは、ERC-20 トークンと React フロントエンドを組み合わせた
-フルスタック Web3 学習用 DApp です。
-現在は、基本機能（ウォレット接続・残高取得・送金）まで実装完了しています。
-その他の機能は開発予定です。
+This full-stack Web3 learning DApp implements an ERC-20 token (MyToken / MTK) and a React frontend.
+All core features (wallet connection, balance display, token transfer, approve, transferFrom) have been implemented.
 
-## 実装済みの機能
+## Implemented Features
 
-### 1. スマートコントラクト（Solidity / Hardhat）
+### 1. Smart Contract (Solidity / Hardhat)
 
-- オリジナル ERC-20 トークン MyToken (MTK) を作成
-- Hardhat によるコンパイル・ローカルデプロイ
-- Sepolia テストネットへのデプロイ済み
-- OpenZeppelin ライブラリを使用
+- Original ERC-20 token: MyToken (MTK)
+- Compiled and deployed locally using Hardhat
+- Deployed to Sepolia testnet
+- Utilizes OpenZeppelin library
 
-### 2. フロントエンド（React + Ethers.js）
+### 2. Frontend (React + Ethers.js)
 
-- MetaMask との接続
-- 現在のウォレットアドレスの表示
-- MyToken 残高の取得
-- MyToken の送金（transfer）
-- React + TailwindCSS によるシンプルな UI
+- MetaMask wallet connection
+- Display of current wallet address
+- Fetching MyToken balance
+- Token transfer (transfer)
+- Approve a spender (approve)
+- Transfer tokens from an approved account (transferFrom)
+- Simple UI built with React + TailwindCSS
 
 ## UI
-![alt text](screenshots/image.png)
+Transfer Screen (includes balance):
 
-## 今後の開発予定
+![Transfer](screenshots/transfer.png)
 
-- トランザクションステータス（送信中 / 成功 / 失敗）
-- エラー処理の強化
-- approve / transferFrom の UI
-- トランザクション履歴ビュー
-- 残高のリアルタイム更新（イベント購読）
-- テストコード（Hardhat）
-- 複数アカウント間での総合テスト
+Approve & TransferFrom Screens:
 
-## 使用技術
+![Approve & TransferFrom](screenshots/approve_transferfrom.png)
+
+## Demo
+Experience the DApp in action:
+
+<p align="center">
+  <a href="Demo/Demo.mp4" style="background-color:#4f46e5;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:bold;">Watch Demo Video</a>
+</p>
+
+*Note: The video shows wallet connection, balance check, transfer, approve, and transferFrom on Sepolia testnet.*
+
+## Tech Stack
 
 ### Smart Contract
-
 - Solidity
 - Hardhat
 - OpenZeppelin
 
 ### Frontend
-
 - React
 - Vite
 - TailwindCSS
 - Ethers.js
 - MetaMask
 
-## 実行方法
+## How to Run
 
-1. スマートコントラクトのセットアップ
-```
+1. Smart Contract Setup
+```bash
 npm install
 npx hardhat run scripts/deploy.js --network sepolia
 ```
 
-2. フロントエンドの起動
-```
+2. Frontend Setup
+```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-## このプロジェクトで学べる内容
+## Learning Outcomes
 
-- スマートコントラクト ↔ フロントエンドの連携
-- MetaMask と接続して操作する Web3 UI の実装
-- Ethers.js を使ったトークン残高の取得・送金
-- Hardhat を使ったデプロイ、テストネット運用
+- Interaction between smart contracts and frontend
+- Implementing Web3 UI connected to MetaMask
+- Using Ethers.js to fetch balances and send tokens
+- Deploying smart contracts on a testnet using Hardhat
