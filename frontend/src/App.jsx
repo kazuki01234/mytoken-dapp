@@ -43,7 +43,7 @@ function App() {
             <Balance contract={contract} account={account} darkMode />
 
             <div className="border-t border-gray-700 pt-6">
-              <TransferForm contract={contract} darkMode />
+              <TransferForm contract={contract} account={account} darkMode />
             </div>
           </div>
         )}
