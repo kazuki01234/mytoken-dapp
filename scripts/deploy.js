@@ -12,8 +12,6 @@ async function main() {
 
   // Wait for deployment to complete
   await myToken.deployed();
-
-  console.log("MyToken deployed to:", myToken.address);
 }
 
 main()

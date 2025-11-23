@@ -22,15 +22,12 @@ async function main() {
 
     // Check own balance
     const myBalance = await token.balanceOf(wallet.address);
-    console.log("My balance:", ethers.utils.formatUnits(myBalance, 18));
 
     // Test transfer (example: send 0.01 token)
     const tx = await token.transfer(recipient, ethers.utils.parseUnits("0.01", 18));
-    console.log("Transaction sent:", tx.hash);
 
     // Wait for transaction to be mined
     await tx.wait();
-    console.log("Transfer completed!");
 }
 
 main().catch((err) => {
