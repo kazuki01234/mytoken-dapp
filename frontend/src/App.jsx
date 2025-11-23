@@ -8,7 +8,7 @@ import tokenAbi from "./contracts/MyToken.json";
 const TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS;
 
 function App() {
-  // provider は初期化時に一度だけ作る
+  // Initialize provider only once
   const [provider] = useState(() => {
     return window.ethereum ? new ethers.BrowserProvider(window.ethereum) : null;
   });
@@ -16,11 +16,11 @@ function App() {
   const [account, setAccount] = useState(null);
   const [contract, setContract] = useState(null);
 
-  // MetaMask 接続後に呼ばれる
+  // Called after connecting MetaMask
   async function handleConnect(addr) {
-    if (!provider) return alert("MetaMask が必要です");
+    if (!provider) return alert("MetaMask is required");
 
-    const signer = await provider.getSigner(); // v6では非同期
+    const signer = await provider.getSigner(); // async in v6
     setAccount(addr);
 
     const c = new ethers.Contract(TOKEN_ADDRESS, tokenAbi.abi, signer);
