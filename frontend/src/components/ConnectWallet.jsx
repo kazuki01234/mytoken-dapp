@@ -4,8 +4,9 @@ export default function ConnectWallet({ onConnect, darkMode }) {
   const [addr, setAddr] = useState(null);
 
   async function connect() {
-    if (!window.ethereum) return alert("MetaMask が必要です");
+    if (!window.ethereum) return alert("MetaMask is required");
 
+    // Request account access
     await window.ethereum.request({ method: "eth_requestAccounts" });
     const accounts = await window.ethereum.request({ method: "eth_accounts" });
 
@@ -17,7 +18,7 @@ export default function ConnectWallet({ onConnect, darkMode }) {
     if (!address) return "";
     const len = 10;
     return `${address.slice(0, len)}...${address.slice(-len)}`;
-}
+  }
 
   return (
     <div className="w-full flex flex-col items-start gap-2">
@@ -33,7 +34,7 @@ export default function ConnectWallet({ onConnect, darkMode }) {
         Connect MetaMask
       </button>
 
-      {/* Connected address */}
+      {/* Display connected address */}
       {addr && (
         <div
           className={`px-3 py-2 rounded-xl border inline-flex items-center whitespace-nowrap ${
