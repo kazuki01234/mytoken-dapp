@@ -21,7 +21,7 @@ export default function ConnectWallet({ onConnect, darkMode }) {
 
   return (
     <div className="w-full flex flex-col items-start gap-2">
-      {/* Connect MetaMask ボタン */}
+      {/* Connect MetaMask button */}
       <button
         onClick={connect}
         className={`font-semibold px-4 py-2 rounded-xl shadow-md whitespace-nowrap transition ${
@@ -33,7 +33,7 @@ export default function ConnectWallet({ onConnect, darkMode }) {
         Connect MetaMask
       </button>
 
-      {/* Connected アドレス */}
+      {/* Connected address */}
       {addr && (
         <div
           className={`px-3 py-2 rounded-xl border inline-flex items-center whitespace-nowrap ${

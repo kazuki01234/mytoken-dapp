@@ -1,16 +1,16 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-  // コントラクトを取得
+  // Get the contract factory
   const MyToken = await ethers.getContractFactory("MyToken");
 
-  // トークンの初期供給量（例: 100万トークン）
+  // Initial token supply (example: 1,000,000 tokens)
   const initialSupply = ethers.utils.parseUnits("1000000", 18);
 
-  // デプロイ（引数を渡す）
+  // Deploy the contract (pass constructor arguments)
   const myToken = await MyToken.deploy(initialSupply);
 
-  // デプロイ完了を待つ
+  // Wait for deployment to complete
   await myToken.deployed();
 
   console.log("MyToken deployed to:", myToken.address);

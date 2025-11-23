@@ -1,36 +1,36 @@
 require("dotenv").config();
 const { ethers } = require("hardhat");
 
-// デプロイ済みのコントラクトアドレス
+// Deployed contract address
 const tokenAddress = process.env.TOKEN_ADDRESS;
-// 送金先アドレス
+// Recipient address
 const recipient = process.env.RECIPIENT_ADDRESS;
 
 async function main() {
-    // Hardhat のプロバイダーに接続
+    // Connect to Hardhat provider
     const provider = new ethers.providers.JsonRpcProvider(process.env.SEPOLIA_URL);
 
-    // ウォレット作成
+    // Create wallet
     const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
 
-    // コントラクトインスタンス作成
+    // Create contract instance
     const abi = [
         "function balanceOf(address) view returns (uint256)",
         "function transfer(address to, uint amount) returns (bool)"
     ];
     const token = new ethers.Contract(tokenAddress, abi, wallet);
 
-    // 自分の残高確認
+    // Check own balance
     const myBalance = await token.balanceOf(wallet.address);
-    console.log("自分の残高:", ethers.utils.formatUnits(myBalance, 18));
+    console.log("My balance:", ethers.utils.formatUnits(myBalance, 18));
 
-    // 送金テスト（例: 0.01 トークン送る）
+    // Test transfer (example: send 0.01 token)
     const tx = await token.transfer(recipient, ethers.utils.parseUnits("0.01", 18));
-    console.log("トランザクション送信:", tx.hash);
+    console.log("Transaction sent:", tx.hash);
 
-    // 送金完了を待つ
+    // Wait for transaction to be mined
     await tx.wait();
-    console.log("送金完了！");
+    console.log("Transfer completed!");
 }
 
 main().catch((err) => {
