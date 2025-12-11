@@ -3,24 +3,24 @@ import { ethers } from "ethers";
 import ConnectWallet from "./components/ConnectWallet";
 import Balance from "./components/Balance";
 import TransferForm from "./components/ApproveTransferForm";
+import Staking from "./components/Staking";
 import tokenAbi from "./contracts/MyToken.json";
 
 const TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS;
 
 function App() {
-  // Initialize provider only once
-  const [provider] = useState(() => {
-    return window.ethereum ? new ethers.BrowserProvider(window.ethereum) : null;
-  });
+  const [provider] = useState(() =>
+    window.ethereum ? new ethers.BrowserProvider(window.ethereum) : null
+  );
 
   const [account, setAccount] = useState(null);
   const [contract, setContract] = useState(null);
 
-  // Called after connecting MetaMask
+  // Connect to ERC-20 token contract
   async function handleConnect(addr) {
     if (!provider) return alert("MetaMask is required");
 
-    const signer = await provider.getSigner(); // async in v6
+    const signer = await provider.getSigner();
     setAccount(addr);
 
     const c = new ethers.Contract(TOKEN_ADDRESS, tokenAbi.abi, signer);
@@ -34,17 +34,33 @@ function App() {
           MyToken DApp
         </h1>
 
+        {/* Wallet Connection */}
         <div className="mb-6">
           <ConnectWallet onConnect={handleConnect} darkMode />
         </div>
 
+        {/* ERC-20 Token UI */}
         {contract && account && (
           <div className="space-y-8">
+
+            {/* Display user balance */}
             <Balance contract={contract} account={account} darkMode />
 
+            {/* Transfer / Approve form */}
             <div className="border-t border-gray-700 pt-6">
               <TransferForm contract={contract} account={account} darkMode />
             </div>
+
+            {/* Staking UI */}
+            <div className="border-t border-gray-700 pt-6">
+              <Staking 
+                provider={provider} 
+                account={account} 
+                tokenAddress={TOKEN_ADDRESS} 
+                darkMode 
+              />
+            </div>
+
           </div>
         )}
       </div>
