@@ -19,9 +19,12 @@ contract Staking {
     uint256 private constant PRECISION = 1e30; // Increase precision to reduce rounding errors
     uint256 private _totalSupply;
 
-    constructor(address _token, uint256 _rewardRate) {
+    constructor(address _token) {
         token = IERC20(_token);
-        rewardRate = _rewardRate;
+
+        // rewardRate for ~50% APR when totalStaked ≈ 300 MTK
+        rewardRate = 4755000000000; // ≈ 0.000004755 MTK/sec
+
         lastUpdateTime = block.timestamp;
     }
 
