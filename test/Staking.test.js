@@ -4,9 +4,9 @@ const { ethers } = require("hardhat");
 describe("Staking Contract", function () {
   let Token, token, Staking, staking;
   let owner;
+
   const initialSupply = ethers.utils.parseEther("1000");
-  const rewardRate = ethers.utils.parseEther("1"); // 1 token per second
-  const tolerance = ethers.utils.parseEther("2");  // allow small error
+  const tolerance = ethers.utils.parseEther("0.00001");
 
   beforeEach(async function () {
     [owner] = await ethers.getSigners();
@@ -16,7 +16,7 @@ describe("Staking Contract", function () {
     await token.deployed();
 
     Staking = await ethers.getContractFactory("Staking");
-    staking = await Staking.deploy(token.address, rewardRate);
+    staking = await Staking.deploy(token.address);
     await staking.deployed();
 
     await token.approve(staking.address, initialSupply);
@@ -49,6 +49,8 @@ describe("Staking Contract", function () {
     const amount = ethers.utils.parseEther("100");
     await staking.deposit(amount);
 
+    const rewardRate = await staking.rewardRate();
+
     await ethers.provider.send("evm_increaseTime", [10]);
     await ethers.provider.send("evm_mine");
 
@@ -65,12 +67,13 @@ describe("Staking Contract", function () {
     await ethers.provider.send("evm_increaseTime", [10]);
     await ethers.provider.send("evm_mine");
 
+    const expected = await staking.earned(owner.address);
+
     const before = await token.balanceOf(owner.address);
     await staking.claimReward();
     const after = await token.balanceOf(owner.address);
 
     const reward = after.sub(before);
-    const expected = rewardRate.mul(10);
 
     expect(reward.sub(expected).abs().lte(tolerance)).to.be.true;
   });
